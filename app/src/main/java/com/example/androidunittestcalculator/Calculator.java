@@ -63,4 +63,8 @@ public class Calculator {
     char getOperator() {
         return operator;
     }
+
+    boolean runCalculation() {
+
+    }
 }

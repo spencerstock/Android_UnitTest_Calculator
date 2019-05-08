@@ -134,5 +134,54 @@ public class CalculatorUnitTest {
         assertEquals("0", calculator.getDisplayString());
     }
 
+    @Test
+    public void runBasicCalculation_ReturnsString() {
+        Calculator calculator = new Calculator();
+        assertEquals("5", calculator.addSymbol("5"));
+        assertEquals("56", calculator.addSymbol("6"));
+        calculator.addSymbol("+");
+        assertEquals("5", calculator.addSymbol("5"));
+        assertEquals("56", calculator.addSymbol("6"));
+        calculator.runCalculation();
+        assertEquals("112", calculator.getDisplayString());
+    }
+
+    @Test
+    public void runEmptyCalculation_ReturnsString() {
+        Calculator calculator = new Calculator();
+        calculator.runCalculation();
+        assertEquals("5", calculator.addSymbol("5"));
+    }
+
+    @Test
+    public void runDoubleCalculation_ReturnsString() {
+        Calculator calculator = new Calculator();
+        assertEquals("5", calculator.addSymbol("5"));
+        assertEquals("56", calculator.addSymbol("6"));
+        calculator.addSymbol("+");
+        assertEquals("5", calculator.addSymbol("5"));
+        assertEquals("56", calculator.addSymbol("6"));
+        calculator.runCalculation();
+        calculator.addSymbol("+");
+        assertEquals("5", calculator.addSymbol("5"));
+        assertEquals("50", calculator.addSymbol("0"));
+        assertEquals("162", calculator.getDisplayString());
+    }
+
+
+    @Test
+    public void runDoubleCalculationWithoutRunCalculate_ReturnsString() {
+        Calculator calculator = new Calculator();
+        assertEquals("5", calculator.addSymbol("5"));
+        assertEquals("56", calculator.addSymbol("6"));
+        calculator.addSymbol("+");
+        assertEquals("5", calculator.addSymbol("5"));
+        assertEquals("56", calculator.addSymbol("6"));
+        calculator.addSymbol("+");
+        assertEquals("5", calculator.addSymbol("5"));
+        assertEquals("50", calculator.addSymbol("0"));
+        calculator.addSymbol("+");
+        assertEquals("162", calculator.getDisplayString());
+    }
 
 }
