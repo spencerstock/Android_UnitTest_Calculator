@@ -4,9 +4,9 @@ import java.util.regex.Pattern;
 
 public class Calculator {
 
-    private String  displayString = "";
+    private String  displayString = "0";
     private Pattern NUMERICAL     = Pattern.compile("[0-9]");
-    private Pattern OPERANDS      = Pattern.compile("[?:/*+\\-]");
+    private Pattern OPERANDS      = Pattern.compile("[?:/*+%\\-]");
     private float   operand1;
     private float   operand2;
     private char    operator;
@@ -30,19 +30,10 @@ public class Calculator {
 
     }
 
-    private void addOperator(String symbol) {
-        if (operator == '\0') {
-            char[] temp = symbol.toCharArray();
-            operator = temp[0];
-            operand1 = Float.valueOf(displayString);
-            displayString = "";
-        }
-
-    }
-
 
     private String addNumber(String symbol) {
-        displayString += symbol;
+        if (displayString.equals("0")) displayString = symbol;
+        else displayString += symbol;
         return symbol;
     }
 
@@ -52,7 +43,22 @@ public class Calculator {
         return symbol;
     }
 
-    public char getOperator() {
+    private void addOperator(String symbol) {
+        if (operator == '\0') {
+            char[] temp = symbol.toCharArray();
+            operator = temp[0];
+            operand1 = Float.valueOf(displayString);
+            displayString = "0";
+        }
+
+    }
+
+    private void backPress() {
+
+    }
+
+
+    char getOperator() {
         return operator;
     }
 }
