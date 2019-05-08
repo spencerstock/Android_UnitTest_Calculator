@@ -34,7 +34,8 @@ public class CalculatorUnitTest {
 
     @Test
     public void addZeroAfterDecimalNoInteger_ReturnsString() {
-        Calculator calculator = new Calculator();;
+        Calculator calculator = new Calculator();
+        ;
         assertEquals("0.", calculator.addSymbol("."));
         assertEquals("0.0", calculator.addSymbol("0"));
         assertEquals("0.00", calculator.addSymbol("0"));
@@ -107,6 +108,31 @@ public class CalculatorUnitTest {
         assertEquals('%', calculator.getOperator());
     }
 
+    @Test
+    public void backPressNormal_ReturnsString() {
+        Calculator calculator = new Calculator();
+        assertEquals("5", calculator.addSymbol("5"));
+        assertEquals("56", calculator.addSymbol("6"));
+        calculator.backPress();
+        assertEquals("52", calculator.addSymbol("2"));
+    }
+
+    @Test
+    public void backPressEmptyField_ReturnsString() {
+        Calculator calculator = new Calculator();
+        calculator.backPress();
+        assertEquals("0", calculator.getDisplayString());
+    }
+
+    @Test
+    public void backPressEmptyFieldAfterOperator_ReturnsString() {
+        Calculator calculator = new Calculator();
+        assertEquals("5", calculator.addSymbol("5"));
+        assertEquals("56", calculator.addSymbol("6"));
+        calculator.addSymbol("/");
+        calculator.backPress();
+        assertEquals("0", calculator.getDisplayString());
+    }
 
 
 }

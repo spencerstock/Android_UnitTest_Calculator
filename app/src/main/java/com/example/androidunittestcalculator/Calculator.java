@@ -31,16 +31,13 @@ public class Calculator {
     }
 
 
-    private String addNumber(String symbol) {
+    private void addNumber(String symbol) {
         if (displayString.equals("0")) displayString = symbol;
         else displayString += symbol;
-        return symbol;
     }
 
-    private String addDecimal(String symbol) {
-        if (displayString.contains(".")) return null;
-        displayString += symbol;
-        return symbol;
+    private void addDecimal(String symbol) {
+        if (!displayString.contains(".")) displayString += symbol;
     }
 
     private void addOperator(String symbol) {
@@ -53,10 +50,15 @@ public class Calculator {
 
     }
 
-    private void backPress() {
+    public void backPress() {
 
+        if (displayString.length() == 1) displayString = "0";
+        else displayString = displayString.substring(0,displayString.length()-1);
     }
 
+    public String getDisplayString() {
+        return displayString;
+    }
 
     char getOperator() {
         return operator;
