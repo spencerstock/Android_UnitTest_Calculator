@@ -1,5 +1,6 @@
 package com.example.androidunittestcalculator;
 
+import java.text.DecimalFormat;
 import java.util.regex.Pattern;
 
 public class Calculator {
@@ -7,8 +8,8 @@ public class Calculator {
     private String  displayString = "0";
     private Pattern NUMERICAL     = Pattern.compile("[0-9]");
     private Pattern OPERANDS      = Pattern.compile("[?:/*+%\\-]");
-    private float   operand1;
-    private float   operand2;
+    private double   operand1;
+    private double   operand2;
     private char    operator;
 
     public Calculator() {
@@ -65,6 +66,67 @@ public class Calculator {
     }
 
     boolean runCalculation() {
+        operand2 = Float.valueOf(displayString);
+
+        DecimalFormat df = new DecimalFormat("0.0000");
+
+        switch (operator) {
+            case '+':
+                displayString = String.valueOf(df.format(runCalculationAdd(operand1, operand2)));
+                break;
+            case '-':
+                displayString = String.valueOf(df.format(runCalculationSubtract(operand1, operand2)));
+                break;
+            case '/':
+                displayString = String.valueOf(df.format(runCalculationDivide(operand1, operand2)));
+                break;
+            case '*':
+                displayString = String.valueOf(df.format(runCalculationMultiply(operand1, operand2)));
+                break;
+            case '%':
+                displayString = String.valueOf(df.format(runCalculationMod(operand1, operand2)));
+                break;
+
+        }
+
+
+
+
+            while (displayString.contains(".") && (displayString.endsWith("0") || displayString.endsWith("."))) {
+                displayString = displayString.substring(0, displayString.length() - 1);
+            }
+        return true;
 
     }
+
+    double runCalculationAdd(double value1, double value2) {
+
+        return value1 + value2;
+
+    }
+
+    double runCalculationSubtract(double value1, double value2) {
+
+        return value1 - value2;
+
+    }
+
+    double runCalculationMultiply(double value1, double value2) {
+
+        return value1 * value2;
+
+    }
+
+    double runCalculationDivide(double value1, double value2) {
+
+        return value1 / value2;
+
+    }
+
+    double runCalculationMod(double value1, double value2) {
+
+        return value1 % value2;
+
+    }
+
 }
