@@ -7,9 +7,9 @@ public class Calculator {
 
     private String  displayString = "0";
     private Pattern NUMERICAL     = Pattern.compile("[0-9]");
-    private Pattern OPERANDS      = Pattern.compile("[?:/*+%\\-]");
-    private double   operand1;
-    private double   operand2;
+    private Pattern OPERATORS     = Pattern.compile("[?:/*+%\\-]");
+    private double  operand1;
+    private double  operand2;
     private char    operator;
 
     public Calculator() {
@@ -18,14 +18,9 @@ public class Calculator {
     public String addSymbol(String symbol) {
 
         if (symbol.length() != 1) return null;
-        if (NUMERICAL.matcher(symbol).matches())
-            addNumber(symbol);
-
-
-        if (symbol.equals("."))
-            addDecimal(symbol);
-
-        if (OPERANDS.matcher(symbol).matches()) addOperator(symbol);
+        if (NUMERICAL.matcher(symbol).matches())        addNumber(symbol);
+        else if (OPERATORS.matcher(symbol).matches())    addOperator(symbol);
+        else if (symbol.equals("."))                    addDecimal(symbol);
 
         return displayString;
 
@@ -42,13 +37,11 @@ public class Calculator {
     }
 
     private void addOperator(String symbol) {
-        if (operator == '\0') {
+        if (operator != '\0') runCalculation();
             char[] temp = symbol.toCharArray();
             operator = temp[0];
-            operand1 = Float.valueOf(displayString);
+            operand1 = Double.valueOf(displayString);
             displayString = "0";
-        }
-
     }
 
     public void backPress() {
@@ -63,6 +56,14 @@ public class Calculator {
 
     char getOperator() {
         return operator;
+    }
+
+    public double getOperand1() {
+        return operand1;
+    }
+
+    public double getOperand2() {
+        return operand2;
     }
 
     boolean runCalculation() {
@@ -95,6 +96,8 @@ public class Calculator {
             while (displayString.contains(".") && (displayString.endsWith("0") || displayString.endsWith("."))) {
                 displayString = displayString.substring(0, displayString.length() - 1);
             }
+
+            operator = '\0'; //reset operator
         return true;
 
     }

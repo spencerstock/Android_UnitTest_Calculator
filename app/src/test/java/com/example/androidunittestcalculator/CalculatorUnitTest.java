@@ -289,6 +289,7 @@ public class CalculatorUnitTest {
         calculator.addSymbol("+");
         assertEquals("5", calculator.addSymbol("5"));
         assertEquals("50", calculator.addSymbol("0"));
+        calculator.runCalculation();
         assertEquals("162", calculator.getDisplayString());
     }
 
@@ -305,7 +306,38 @@ public class CalculatorUnitTest {
         assertEquals("5", calculator.addSymbol("5"));
         assertEquals("50", calculator.addSymbol("0"));
         calculator.addSymbol("+");
-        assertEquals("162", calculator.getDisplayString());
+        assertEquals(162d, calculator.getOperand1(), 0);
+    }
+
+
+    @Test
+    public void runFewCalculationsWithoutRunCalculate_ReturnsString() {
+        Calculator calculator = new Calculator();
+        assertEquals("5", calculator.addSymbol("5"));
+        calculator.addSymbol("*");
+        assertEquals("6", calculator.addSymbol("6"));
+        calculator.addSymbol("/");
+        assertEquals("4", calculator.addSymbol("4"));
+        calculator.runCalculation();
+        assertEquals("7.5", calculator.getDisplayString());
+    }
+
+    @Test
+    public void runManyCalculationsWithoutRunCalculate_ReturnsString() {
+        Calculator calculator = new Calculator();
+        assertEquals("5", calculator.addSymbol("5"));
+        calculator.addSymbol("*");
+        assertEquals("6", calculator.addSymbol("6"));
+        calculator.addSymbol("/");
+        assertEquals("4", calculator.addSymbol("4"));
+        calculator.addSymbol("+");
+        assertEquals("4", calculator.addSymbol("4"));
+        calculator.addSymbol("*");
+        assertEquals("4", calculator.addSymbol("4"));
+        calculator.addSymbol("-");
+        assertEquals("4", calculator.addSymbol("4"));
+        calculator.runCalculation();
+        assertEquals("42", calculator.getDisplayString());
     }
 
 }
